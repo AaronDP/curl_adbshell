@@ -29,13 +29,15 @@ CFLAGS="\
 -mthumb-interwork \
 -nostdlib \
 --sysroot=${SYSROOT} \
+-I/data/local/tmp/lib/include \
 -I${SYSROOT}/usr/include \
 -I${ANDROID_PREFIX}/include \
--I${DEV_PREFIX}/android/bionic \
+-I${DEV_PREFIX}/bionic/libc/include \
 "
 CPPFLAGS="${CFLAGS}"
 LDFLAGS="\
 ${LDFLAGS} \
+-L/data/local/tmp/lib \
 -L${SYSROOT}/usr/lib \
 -L${ANDROID_PREFIX}/lib\
 "
@@ -59,6 +61,10 @@ CPPFLAGS="${CPPFLAGS}" \
 --with-compiledby="Aaron D. Pierce" \
 --with-local-dir=/data/local/tmp/lib/share.curl \
 --bindir=/data/local/tmp/xbin \
+--libdir=/data/local/tmp/lib \
+--enable-http \
+--enable-crypto-auth \
+--enable-tls-srp \
 --disable-nls \
 --disable-acl \
 --with-sysroot=${SYSROOT} \
@@ -80,19 +86,29 @@ CPPFLAGS="${CPPFLAGS}" \
 --disable-warnings \
 --disable-manual \
 --without-nss \
---enable-shared \
+--enable-static \
 --with-zlib=/data/local/tmp/lib \
 --with-ssl \
 --with-ssl=/data/local/tmp \
+--with-random=/dev/urandom \
 --with-ca-path=/data/local/tmp/ssl/certs \
 --with-ca-bundle=/data/local/tmp/ssl/certs/ca-bundle.crt \
---without-random \
 --includedir=/data/local/tmp/lib/include \
 --oldincludedir=/data/local/tmp/lib/include \
---prefix=/data/local/tmp &&  make && make install
+--infodir=/data/local/tmp/lib/share/info \
+--localedir=/data/local/tmp/lib/share/locale \
+--mandir=/data/local/tmp/lib/share/man \
+--localstatedir=/data/local/tmp/var \
+--datarootdir=/data/local/tmp/lib/share \
+--prefix= \
+&&  make && make install
+# --prefix=/data/local/tmp \
 # --openssldir=/data/local/tmp/lib \
 fi
 # ------------------------
+#--without-random \
+#--with-ca-fallback \
+#
 #--with-ssl=/data/local/tmp/lib 
 #--without-ssl
 #--without-zlib
